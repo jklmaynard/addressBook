@@ -2,10 +2,20 @@ $(document).ready(function() {
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
 
-    var firstname = $('input#first_name').val();
-    var lastname = $('input#last_name').val();
-    var address = $('input#address').val();
-    var newContact = { firstName: firstname, lastName: lastname, address: address };
+    var inputtedFirstName = $('input#first_name').val();
+    var inputtedLastName = $('input#last_name').val();
+    var inputtedStreet = $('input#street').val();
+    var inputtedState = $('input#state').val();
+    var inputtedZip = $('input#zip').val();
+
+    var newAddress = { street: inputtedStreet,
+                        state: inputtedState,
+                        zip: inputtedZip,
+                        getAddress: function() {
+                          return this.street + ", " + this.state + ", " + this.zip;
+                        }
+                      };
+    var newContact = { firstName: inputtedFirstName, lastName: inputtedLastName, address: newAddress.getAddress() };
 
     $("ul#contacts").append("<li><span class='contact'>" + newContact.firstName + " " + newContact.lastName + "</span></li>");
 
